@@ -5,6 +5,7 @@
  */
  
 #include <iostream>
+#include "listcontainer.hpp"
 
 #ifndef INSTRUCTIONLIST_HPP
 #define INSTRUCTIONLIST_HPP
@@ -47,7 +48,7 @@ class InstructionListElement {
 		~InstructionListElement();
 		
 		InstructionType type;
-		StringList searchStrings;
+		ListContainer<std::string> searchStrings;
 		InstructionListElement * next;
 		InstructionListElementPointerList * destinations;
 	

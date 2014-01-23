@@ -14,8 +14,6 @@ void TextEater::init() {
 	conditionalReturnValue = 0;
 	extract = "";
 	lastErrorCode = OK;
-	lastRowAdded = NULL;
-	rows = NULL;
 }
 
 TextEater::TextEater()
@@ -29,7 +27,7 @@ TextEater::TextEater(std::string scriptFileName) {
 }
 
 TextEater::~TextEater() {
-	if(rows!=NULL) delete rows;
+	
 }
 
 void TextEater::generateTableFromFile(std::string filename) {
@@ -46,20 +44,13 @@ void TextEater::generateTableFromString(std::string &data) {
 		executeInstruction(nextInstruction);
 		if(extract!="")
 		{
-			lastRowAdded->column.append(extract);
+			rows.lastElement().append(extract);
 		}
 	}
 }
 
 std::string TextEater::getElement(int row, int column) {
-	StringListList * p = rows;
-	for(int i=0;i<row;i++) {
-		if(p==NULL) return "";
-		p = p->next;	
-	}
-	if(p==NULL) return "";
-	
-	return p->column[column];
+	return rows[row][column];
 }
 
 void TextEater::loadScript(std::string filename) {
@@ -96,10 +87,7 @@ string loadFileToString(string filename) {
 }
 
 void TextEater::executeInstruction(InstructionListElement* instruction) {
-	if(rows==NULL) {
-		rows = new StringListList;
-		lastRowAdded = rows;
-	}
+	
 	conditionalReturnValue = 0;
 	extract = "";
 	lastErrorCode = 0;
@@ -140,7 +128,7 @@ void TextEater::executeInstruction(InstructionListElement* instruction) {
 		textPointer = endpoint + instruction->searchStrings[0].length();
 		break;
 	case CONDITIONAL_SEARCH:
-		searchResultCount = instruction->searchStrings.getLength();
+		searchResultCount = instruction->searchStrings.length();
 		searchResults = new int[searchResultCount];
 		for(int i=0;i<searchResultCount;i++) {
 			searchResults[i] = 0;
@@ -158,9 +146,8 @@ void TextEater::executeInstruction(InstructionListElement* instruction) {
 		delete [] searchResults;
 		break;
 	case REPEAT:
+		rows.append();
 		instructionList.goToBeginning();
-		lastRowAdded->next = new StringListList;
-		lastRowAdded = lastRowAdded->next;
 		break;
 	default:
 		break;
@@ -170,14 +157,4 @@ void TextEater::executeInstruction(InstructionListElement* instruction) {
 
 void TextEater::setErrorFlag(TextEaterErrorCodeType code) {
 	lastErrorCode=code;
-}
-
-StringListList::StringListList() {
-	next = NULL;
-}
-
-StringListList::~StringListList() {
-	if(next!=NULL) {
-		delete next;
-	}
 }

@@ -17,8 +17,10 @@ class ListContainer {
 		ListContainer();
 		~ListContainer();
 		T&  operator[] (int n);
-		void append(T& value);
-		
+		T& lastElement();
+		void append(T value);
+		void append();
+		void prepend(T value);
 		void remove(int n);
 		int length();
 	private:
@@ -54,7 +56,7 @@ int ListContainer<T>::length() {
 }
 
 template <class T>
-void ListContainer<T>::append(T& value) {
+void ListContainer<T>::append(T value) {
 	if(first==NULL) {
 		first = new ContainedList;
 		last = first;
@@ -65,7 +67,35 @@ void ListContainer<T>::append(T& value) {
 	}
 	last->element = value;
 	mLength++;
-	
+}
+
+template <class T>
+void ListContainer<T>::append() {
+	if(first==NULL) {
+		first = new ContainedList;
+		last = first;
+	}
+	else {
+		last->next = new ContainedList;
+		last = last->next;
+	}
+	mLength++;
+}
+
+template <class T>
+void ListContainer<T>::prepend(T value) {
+	if(first==NULL) {
+		first = new ContainedList;
+		last = first;
+	}
+	else {
+		ContainedList * temp = first;
+		first = new ContainedList;
+		first->next = temp;
+	}
+	lastAccessedNumber++;
+	first->element = value;
+	mLength++;
 }
 
 template <class T>
@@ -107,6 +137,15 @@ T &ListContainer<T>::operator[] (int n) {
 	lastAccessed = p;
 	lastAccessedNumber = n;
 	return p->element;
+}
+
+template <class T>
+T& ListContainer<T>::lastElement() {
+	if(first==NULL) {
+		first = new ContainedList;
+		last = first;
+	}
+	return last->element;
 }
 
 template <class T>

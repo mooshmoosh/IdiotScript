@@ -40,11 +40,12 @@ class TextEater
 		int lastErrorCode;
 		void setErrorFlag(TextEaterErrorCodeType);
 			
-	private:
+	
 		void init();
 		InstructionList instructionList;
-		StringListList * rows;
-		StringListList * lastRowAdded;
+		ListContainer<ListContainer<std::string> > rows;
+		ListContainer<ListContainer<std::string> > lastRowAdded;
+		private:
 		
 		
 		/* add your private declarations */
