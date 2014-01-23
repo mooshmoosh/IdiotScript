@@ -1,0 +1,35 @@
+search for <td style="font-family:Monospace;"> #
+copy till \n</td>
+
+search for <td style="font-family:Monospace;"> #
+copy till \n</td>
+
+search for " src="
+copy till " width="32" height="32" />
+
+search for <a href="/wiki/
+search for " title="
+search for ">
+copy till </a>
+
+
+if you find <td colspan="1" style="background:#
+search for <a href="/wiki/
+search for " title="
+copy till  
+search for <td style="background:#
+search for <a href="/wiki/
+search for " title="
+search for "><span style="color:#
+search for >
+copy till </span>
+
+otherwise if you find <td colspan="2" style="background:#
+search for <a href="/wiki/
+search for " title="
+search for "><span style="color:#
+search for >
+copy till </span>
+
+then
+repeat

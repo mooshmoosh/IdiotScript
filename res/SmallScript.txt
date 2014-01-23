@@ -1,0 +1,10 @@
+search for Hello my name is 
+copy till .
+if you find Somethings I like are 
+copy till ,
+otherwise if you find I do like 
+copy till .
+then
+search for the sky is 
+copy till .
+repeat
