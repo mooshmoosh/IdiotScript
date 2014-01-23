@@ -20,27 +20,11 @@ int main(int argc, char **argv)
 	TextEater processor(argv[1]);
 	processor.generateTableFromFile(argv[2]);
 
-	int i = 0;
-	int j = 0;
-
-	string nextElement;
-
-	while(1) {
-		nextElement = processor.getElement(i,j);
-		if(nextElement=="") {
-			if(j==0) {
-				break;
-			}
-			i++;
-			j=0;
-			cout << "\n";
+	for(int i=0;i<processor.rows.length();i++) {
+		for(int j=0;j<processor.rows[i].length();j++) {
+			cout << "\"" << processor.getElement(i,j) << "\",";
 		}
-		else {
-			j++;
-			cout << "\"" << nextElement << "\",";
-		}
-		
+		cout << endl;
 	}
-	
 	return 0;
 }
